@@ -1,0 +1,27 @@
+{
+  "orders": [
+    {
+      "id": "1b1a3c17-b35f-4a3f-b5a3-fae6ce4e4c2d",
+      "items": [
+        {
+          "id": 1,
+          "category": "Interior Paints",
+          "title": "Premium Emulsion",
+          "desc": "Silk, matte & semi-gloss finishes in 1000+ shades. Low VOC, washable, anti-fungal.",
+          "features": [
+            "Washable & Scrub Resistant",
+            "Low VOC Formula",
+            "Anti-Fungal Protection",
+            "1000+ Shade Options"
+          ],
+          "accent": "#D4522A"
+        }
+      ],
+      "date": "11/4/2026",
+      "method": "upi",
+      "status": "Confirmed",
+      "createdAt": "2026-04-11T14:33:48.822Z"
+    }
+  ],
+  "contacts": []
+}

@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-thumb { background: linear-gradient(#C4A882, #8B7355); border-radius: 10px; }
+
+body { font-family: 'Inter', sans-serif; background: #F9F7F4; color: #1A1A1A; }
+
+input, textarea, select { font-family: 'Inter', sans-serif; outline: none; color: #1A1A1A; }
+
+.btn { cursor: pointer; transition: all .25s cubic-bezier(.25,.8,.25,1); font-family: 'Inter', sans-serif; border: none; }
+.btn:active { transform: scale(.97); }
+
+.scard { transition: transform .35s cubic-bezier(.25,.8,.25,1), box-shadow .35s ease; }
+.scard:hover { transform: translateY(-8px) scale(1.01); }
+
+.navlink { cursor: pointer; transition: color .2s; }
+
+@keyframes fadeUp   { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeIn   { from { opacity: 0; } to { opacity: 1; } }
+@keyframes spin     { to { transform: rotate(360deg); } }
+@keyframes pop      { 0% { transform: scale(0) rotate(-10deg); } 60% { transform: scale(1.15) rotate(5deg); } 100% { transform: scale(1) rotate(0); } }
+@keyframes marquee  { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+@keyframes glow     { 0%, 100% { box-shadow: 0 0 20px rgba(196,168,130,.3); } 50% { box-shadow: 0 0 40px rgba(196,168,130,.7); } }
+@keyframes float    { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+
+.fadeUp { animation: fadeUp .6s ease forwards; }
+.s1 { animation-delay: .1s; }
+.s2 { animation-delay: .2s; }
+.s3 { animation-delay: .3s; }
+.s4 { animation-delay: .4s; }
+
+.marquee-inner { display: flex; animation: marquee 22s linear infinite; white-space: nowrap; }
+.glow-btn { animation: glow 2.5s ease infinite; }
+.float { animation: float 4s ease infinite; }
