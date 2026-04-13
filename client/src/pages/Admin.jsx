@@ -39,13 +39,13 @@ export default function Admin({ toast$ }) {
 
   const deleteOrder = async (id) => {
     await fetch(`${API_URL}/api/orders/${id}`, { method: "DELETE" });
-    setOrders(p => p.filter(o => o.id !== id));
+    setOrders(p => p.filter(o => o._id !== id));
     toast$("Order removed.");
   };
 
   const deleteContact = async (id) => {
     await fetch(`${API_URL}/api/contacts/${id}`, { method: "DELETE" });
-    setContacts(p => p.filter(c => c.id !== id));
+    setContacts(p => p.filter(c => c._id !== id));
     toast$("Enquiry removed.");
   };
 
@@ -82,6 +82,7 @@ export default function Admin({ toast$ }) {
               ["Total Services", SERVICES.length, "#D4522A"],
               ["Total Orders", orders.length, "#2A7DD4"],
               ["Confirmed Orders", orders.filter(o => o.status === "Confirmed").length, "#2A9D8F"],
+              // contacts count shown separately
               ["Enquiries", contacts.length, "#8B7355"],
             ].map(([l, v, c]) => (
               <div key={l} style={{ background: "#fff", borderRadius: 20, padding: "28px", boxShadow: "0 4px 20px rgba(0,0,0,.06)", borderTop: `4px solid ${c}` }}>
@@ -109,15 +110,15 @@ export default function Admin({ toast$ }) {
             orders.length === 0 ? (
               <div style={{ background: "#fff", borderRadius: 16, padding: "48px", textAlign: "center", color: "#bbb" }}>No orders yet.</div>
             ) : orders.map(o => (
-              <div key={o.id} style={{ background: "#fff", borderRadius: 14, padding: "20px 24px", marginBottom: 10, display: "flex", justifyContent: "space-between", alignItems: "center", boxShadow: "0 2px 10px rgba(0,0,0,.05)" }}>
+              <div key={o._id} style={{ background: "#fff", borderRadius: 14, padding: "20px 24px", marginBottom: 10, display: "flex", justifyContent: "space-between", alignItems: "center", boxShadow: "0 2px 10px rgba(0,0,0,.05)" }}>
                 <div>
-                  <div style={{ fontSize: 15, fontWeight: 600, color: MID }}>Order #{o.id.toString().slice(-5)}</div>
+                  <div style={{ fontSize: 15, fontWeight: 600, color: MID }}>Order #{o._id.toString().slice(-5)}</div>
                   <div style={{ fontSize: 12, color: "#aaa", marginTop: 3 }}>{o.date} · {o.items?.length} service(s) · {o.method?.toUpperCase()}</div>
                   <div style={{ fontSize: 11, color: "#bbb", marginTop: 2 }}>{o.items?.map(i => i.title).join(", ")}</div>
                 </div>
                 <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
                   <span style={{ background: "#E8FFF2", color: "#27AE60", fontSize: 11, fontWeight: 700, padding: "5px 14px", borderRadius: 50, letterSpacing: .5 }}>{o.status}</span>
-                  <button onClick={() => deleteOrder(o.id)} className="btn" style={{ background: "#FFF0F0", color: "#C0392B", padding: "6px 14px", borderRadius: 50, fontSize: 11, fontWeight: 600 }}>Remove</button>
+                  <button onClick={() => deleteOrder(o._id)} className="btn" style={{ background: "#FFF0F0", color: "#C0392B", padding: "6px 14px", borderRadius: 50, fontSize: 11, fontWeight: 600 }}>Remove</button>
                 </div>
               </div>
             ))
@@ -128,14 +129,14 @@ export default function Admin({ toast$ }) {
             contacts.length === 0 ? (
               <div style={{ background: "#fff", borderRadius: 16, padding: "48px", textAlign: "center", color: "#bbb" }}>No enquiries yet.</div>
             ) : contacts.map(c => (
-              <div key={c.id} style={{ background: "#fff", borderRadius: 14, padding: "20px 24px", marginBottom: 10, display: "flex", justifyContent: "space-between", alignItems: "flex-start", boxShadow: "0 2px 10px rgba(0,0,0,.05)" }}>
+              <div key={c._id} style={{ background: "#fff", borderRadius: 14, padding: "20px 24px", marginBottom: 10, display: "flex", justifyContent: "space-between", alignItems: "flex-start", boxShadow: "0 2px 10px rgba(0,0,0,.05)" }}>
                 <div>
                   <div style={{ fontSize: 15, fontWeight: 600, color: MID }}>{c.name}</div>
                   <div style={{ fontSize: 12, color: "#555", marginTop: 3 }}>{c.phone} {c.email && `· ${c.email}`}</div>
-                  <div style={{ fontSize: 11, color: "#aaa", marginTop: 2 }}>{c.service && `${c.service} · `}{c.date}</div>
+                  <div style={{ fontSize: 11, color: "#aaa", marginTop: 2 }}>{c.service && `${c.service} · `}{c.createdAt ? new Date(c.createdAt).toLocaleDateString("en-IN") : ""}</div>
                   {c.message && <div style={{ fontSize: 12, color: "#888", marginTop: 6, fontStyle: "italic" }}>{c.message}</div>}
                 </div>
-                <button onClick={() => deleteContact(c.id)} className="btn" style={{ background: "#FFF0F0", color: "#C0392B", padding: "6px 14px", borderRadius: 50, fontSize: 11, fontWeight: 600, flexShrink: 0 }}>Remove</button>
+                <button onClick={() => deleteContact(c._id)} className="btn" style={{ background: "#FFF0F0", color: "#C0392B", padding: "6px 14px", borderRadius: 50, fontSize: 11, fontWeight: 600, flexShrink: 0 }}>Remove</button>
               </div>
             ))
           )}

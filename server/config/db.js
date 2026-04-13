@@ -1,15 +1,13 @@
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
+import mongoose from "mongoose";
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const DB_PATH = path.join(__dirname, "../data/db.json");
-
-export const readDB = () => {
-  const raw = fs.readFileSync(DB_PATH, "utf-8");
-  return JSON.parse(raw);
+const connectDB = async () => {
+  try {
+    const conn = await mongoose.connect(process.env.MONGODB_URI);
+    console.log(`✅ MongoDB connected → ${conn.connection.host}`);
+  } catch (err) {
+    console.error("❌ MongoDB connection failed:", err.message);
+    process.exit(1);
+  }
 };
 
-export const writeDB = (data) => {
-  fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2), "utf-8");
-};
+export default connectDB;
